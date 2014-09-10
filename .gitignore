@@ -98,3 +98,7 @@ main.pdf
 *.bbl
 *.blg
 *.dvi
+*.swp
+
+# programs
+substitution
