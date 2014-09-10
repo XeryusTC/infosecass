@@ -87,3 +87,14 @@ sympy-plots-for-*.tex/
 
 # xindy
 *.xdy
+
+# code
+*.out
+*.d
+*.synctex.gz
+main.pdf
+*.log
+*.aux
+*.bbl
+*.blg
+*.dvi
