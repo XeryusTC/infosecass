@@ -12,7 +12,7 @@ const char* decrypt_mapping(const char* mapping);
 void encrypt(const char* mapping);
 
 int main(int argc, char **argv) {
-    int decrypt = FALSE, offset=0;
+    int decrypt = FALSE, offset = 0;
     char mapping[27];
     memset(mapping, 0, 27*sizeof(char));
 
