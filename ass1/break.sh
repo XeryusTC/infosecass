@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-for i in ${1..26}
+for i in {1..26}
 do
-	./substitution -d $i
+	./substitution -d $i < in.txt > out$i.txt
 done
 
