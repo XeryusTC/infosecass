@@ -28,11 +28,11 @@ int main(int argc, char **argv) {
         decrypt = TRUE;
     }
 
-    if (strlen(argv[1+decrypt]) == 26) {
+    if (strlen(argv[1+decrypt]) == 26)
         memcpy(mapping, argv[1+decrypt], 26*sizeof(char));
-    } else if (sscanf(argv[1+decrypt], "%d", &offset)) {
+    else if (sscanf(argv[1+decrypt], "%d", &offset))
         memcpy(mapping, generate_mapping(offset), 26*sizeof(char));
-    } else {
+    else {
         print_usage();
         exit(-1);
     }
@@ -46,12 +46,11 @@ int main(int argc, char **argv) {
 }
 
 const char* generate_mapping(const int offset) {
-    char *mapping = calloc(27, sizeof(char));
-
     int i;
-    for (i=0; i<26; ++i) {
+    char *mapping = calloc(27, sizeof(char));
+    
+    for (i=0; i<26; ++i)
         mapping[i] = (i + offset) % 26 + 'a';
-    }
     return mapping;
 }
 
@@ -59,9 +58,8 @@ const char* decrypt_mapping(const char* mapping) {
     int i;
     char *dmap = calloc(27, sizeof(char));
 
-    for (i=0; i<26; ++i) {
+    for (i=0; i<26; ++i)
         dmap[mapping[i]-'a'] = i + 'a';
-    }
 
     return dmap;
 }
@@ -74,9 +72,10 @@ void encrypt(const char* mapping) {
             putchar(mapping[c-'a']);
         else if (c == '\n')
             printf("\n");
+        else if (c == EOF)
+            break;
     }
 }
-
 
 void print_usage() {
     printf("Usage: substitution [-d] mapping\n");
