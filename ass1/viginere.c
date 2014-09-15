@@ -30,16 +30,27 @@ int main(int argc, char **argv) {
     get_secret(secret);
     printf("ENCRYPTED TEXT (%d bytes)\n%s\n\n", strlen(secret), secret);
 
-    for (i=MIN_KEY_LENGTH; i<=MAX_KEY_LENGTH; ++i) {
-        key_stddevs[i - MIN_KEY_LENGTH] = calc_key_stddev(secret, i);
-        printf("Sum of %2d std. devs: %2.1f\n", i,
-            key_stddevs[i - MIN_KEY_LENGTH]);
+    if (argc == 1) {
+        for (i=MIN_KEY_LENGTH; i<=MAX_KEY_LENGTH; ++i) {
+            key_stddevs[i - MIN_KEY_LENGTH] = calc_key_stddev(secret, i);
+            printf("Sum of %2d std. devs: %2.1f\n", i,
+                key_stddevs[i - MIN_KEY_LENGTH]);
+        }
+
+        best_key_length = find_spike(key_stddevs) + MIN_KEY_LENGTH;
+        printf("\nMost likely key length: %d\n", best_key_length);
+
+        cycle_keys(secret, best_key_length);
+    } else if (argc == 2) {
+        printf("DECRYPTED TEXT USING \"%s\" AS KEY:\n", argv[1]);
+        decrpyt(secret, strlen(argv[1]), argv[1], strlen(secret));
+    } else {
+        printf("Usage: viginere [key]\nWhere:\n");
+        printf("\tkey: key to decrypt the input with\nIf key is left out ");
+        printf("viginere will try to find most likely key length and output");
+        printf("\nalllikely key permutations at that length.");
     }
 
-    best_key_length = find_spike(key_stddevs) + MIN_KEY_LENGTH;
-    printf("\nMost likely key length: %d\n", best_key_length);
-
-    cycle_keys(secret, best_key_length);
 
     free(secret);
     printf("\n");
@@ -74,7 +85,7 @@ void cycle_keys_rec(char *secret, int n, char *candidates,
     int i;
 
     if (n == key_length) {
-        printf("\tTrying key \"%s\":\n", key);
+        printf("Trying key \"%s\":\n\t", key);
         decrpyt(secret, key_length, key, 70);
     } else {
         for (i=0; i<num_candidates[n]; ++i) {
