@@ -13,16 +13,17 @@ float stddev(int *key);
 void get_secret(char *dest);
 float calc_key_stddev(char *secret, int key_length);
 
-char *secret;
-
 int main(int argc, char **argv) {
     int i;
-    secret = calloc(BUFFER_SIZE, sizeof(char));
+    char *secret = calloc(BUFFER_SIZE, sizeof(char));
+    float key_stddevs[TOTAL_KEYS];
     
     get_secret(secret);
+    printf("%d: %s\n", strlen(secret), secret);
     
     for (i=MIN_KEY_LENGTH; i<=MAX_KEY_LENGTH; ++i) {
-        printf("%d: %f\n", i, calc_key_stddev(secret, i));
+        key_stddevs[i - MIN_KEY_LENGTH] = calc_key_stddev(secret, i);
+        printf("Sum of %2d std. devs: %2.1f\n", i, key_stddevs[i - MIN_KEY_LENGTH]);
     }
 
     free(secret);
@@ -41,6 +42,7 @@ float calc_key_stddev(char *secret, int key_length) {
         }
     }
 
+    // Tally the frequencies of letters
     for (i=0; i<strlen(secret); ++i) {
         vector[i % key_length][secret[i] - 'a']++;
     }
@@ -54,33 +56,33 @@ float calc_key_stddev(char *secret, int key_length) {
 
 float stddev(int *key) {
     int i=0;
-    const int size = 26;
     float mean, total=0.0f, squares=0.0f;
     
     // Calculate the mean
-    for (i=0; i<size; ++i)
+    for (i=0; i<NUM_ALPHA; ++i)
         total += key[i];
-    mean = total / size;
+    mean = total / NUM_ALPHA;
     
     // Calculate the distances
-    for (i=0; i<size; ++i) {
-        squares += (key[i] - mean) * (key[i] - mean);
+    for (i=0; i<NUM_ALPHA; ++i) {
+        squares += pow(key[i] - mean, 2);
     }
 
-    return sqrt(squares / (float)size);
+    return sqrt(squares / (NUM_ALPHA - 1.0f));
 }
 
 void get_secret(char *dest) {
     char c;
     int i;
     for (i=0; i<BUFFER_SIZE && (c=getchar()); ++i) {
-        if (c == '\n') {
-            --i; // Go one character back so we dont insert anything on \n, otherwise it will be recognised as \0
+        if (c == EOF) {
+            dest[i] = '\0';
+            return;
         } else if (c >= 'a' && c <= 'z') {
             dest[i] = c;
         } else {
-            dest[i] = '\0';
-            break;
+            // This is an unrecognised char, move the position in the buffer one back so we don't accidentally add \0 halfway through the secret
+            --i;
         }
     }
 }
