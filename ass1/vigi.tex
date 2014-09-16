@@ -1,6 +1,33 @@
 \subsection{Decrypted text}
+The following text was obtained by using the key "integrity" to decrypt. Capitalisation and punctuation are added to improve readability.
 
-I came to security from cryptography and thought of the problem in a military like fashion most writings about security come from this perspective and it can be summed up pretty easily security threats are to be avoided using preventive counter measures this is how encryption works the threat is eavesdropping and encryption provides the prophylactic this could all be explained with block diagrams alice is communicating with bob both are identified by boxes and there is a line between them signifying the communication eve is the eavesdropper she also is a box and has a dotted line attached to the communications lines he is able to intercept the communication the only way to prevent eve from learning what alice and bob are talking about is through a preventive counter measure encryption theres no detection theres no response theres no risk management you have to avoid the threat for decades we have used this approach to computer security we draw boxes around the different players and lines between them we define different attackers eavesdroppers impersonators thieves and their capabilities we use preventive countermeasures like encryption and access control to avoid different threats if we can avoid the threats weve won if we cant weve lost imagine my surprise when i learned that the world doesnt work this way.
+I came to security from cryptography and thought of the problem in a military like fashion. Most writings about security come from this perspective and it can be summed up pretty easily: security threats are to be avoided using preventive counter measures. This is how encryption works. The threat is eavesdropping and encryption provides the prophylactic. This could all be explained with block diagrams: Alice is communicating with Bob. Both are identified by boxes and there is a line between them signifying the communication. Eve is the eavesdropper, she also is a box and has a dotted line attached to the communications lines. He is able to intercept the communication. The only way to prevent Eve from learning what Alice and Bob are talking about is through a preventive counter measure encryption. There's no detection. There's no response. There's no risk management. You have to avoid the threat. For decades we have used this approach to computer security. We draw boxes around the different players and lines between them. We define different attackers: eavesdroppers, impersonators, thieves and their capabilities. We use preventive countermeasures like encryption and access control to avoid different threats. If we can avoid the threats we've won, if we cant we've lost. Imagine my surprise when I learned that the world doesn't work this way.
 
+\subsection{Keys}
+\begin{table}[h]
+	\centering
+	\caption{Table of standard deviations, rounded to one decimal.}
+	\label{tbl:stddevs}
+	\begin{tabular}{r|l}
+		Key length & Sum of std. devs \\
+		\hline
+		 5 & 21.8 \\
+		 6 & 30.4 \\
+		 7 & 23.4 \\
+		 8 & 25.5 \\
+		 9 & 42.4 \\
+		10 & 26.0 \\
+		11 & 26.5 \\
+		12 & 34.1 \\
+		13 & 28.9 \\
+		14 & 28.9 \\
+		15 & 34.8 
+	\end{tabular}
+\end{table}
+
+The spike is found at a key length of 9, the program we wrote to crack the encryption generated the following alternatives: \texttt{i[cnwx]t[ae]g[bgr]i[it]y}. From this the most likely keyword is \texttt{integrity} as that is the only English word that can be made from this combination of letters, it is also the only key that decrypts to sensible text for the first 70 characters of the encrypted text.
+
+\subsection{Code}
+We have used the following code to find the key. It is not guaranteed that this code compiles and runs without errors on your machine, we have tested with gcc 4.7.2, glibc 2.13 on Debian Wheezy; gcc 4.9.1, glibc 2.19 on Debian Jessie; and gcc 4.9.1 OS X 10.9.4 (libc version unknown), it works on all three of these machines, your mileage may vary. It is also not guaranteed that your jaw won't drop because some of the code is completely FUBAR.
 
 \lstinputlisting[numbers=left, backgroundcolor=\color{light-gray}, frame=single, title=\lstname]{viginere.c}
