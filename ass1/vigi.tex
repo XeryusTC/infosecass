@@ -27,7 +27,10 @@ I came to security from cryptography and thought of the problem in a military li
 
 The spike is found at a key length of 9, the program we wrote to crack the encryption generated the following alternatives: \texttt{i[cnwx]t[ae]g[bgr]i[it]y}. From this the most likely keyword is \texttt{integrity} as that is the only English word that can be made from this combination of letters, it is also the only key that decrypts to sensible text for the first 70 characters of the encrypted text.
 
+\subsection{Generalisation}
+If the cipher had to be generalised to include all printable ASCII characters then space (0x20) would be the most common character, followed by 'e' as the second most common.
+
 \subsection{Code}
 We have used the following code to find the key. It is not guaranteed that this code compiles and runs without errors on your machine, we have tested with gcc 4.7.2, glibc 2.13 on Debian Wheezy; gcc 4.9.1, glibc 2.19 on Debian Jessie; and gcc 4.9.1 OS X 10.9.4 (libc version unknown), it works on all three of these machines, your mileage may vary. It is also not guaranteed that your jaw won't drop because some of the code is completely FUBAR.
 
-\lstinputlisting[numbers=left, backgroundcolor=\color{light-gray}, frame=single, title=\lstname]{viginere.c}
+\lstinputlisting[numbers=left, backgroundcolor=\color{light-gray}, frame=single, title=\lstname]{vigenere.c}
