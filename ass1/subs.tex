@@ -1,6 +1,10 @@
 % !TEX root = main.tex
 The code for our substitution cipher can be found in \autoref{code:subs}. The program takes a text from \lstinline{stdin} and encrypts it using \lstinline{mapping}.
 
-First the program decides if it has to decrypt
+First the program decides if it has to decrypt to encrypt by comparing the first argument to ''-d''. Then it checks if a mapping is provided or if a shift is provided. If a shift is provided, the program will turn this into a mapping. If it needs to decrypt text, the mapping(either given or handmade) is reversed. 
+
+So now we have a mapping that we want to use and a text waiting on standard input. Characters are read in one at a time using \lstinline{getchar} and converted to lower case. If the character is a letter, the mapping is used as a lookup table and the result gets printed using \lstinline{putchar}. A newline will get printed verbatim and all the other characters are ignored. Sending an \lstinline{EOF} will stop execution of the program.
+
+The program relies on \lstinline{putchar}s and \lstinline{getchar}s behavior to buffer a line before reading/writing. If this behavior is somehow disabled, the program will return characters as they are written.
 
 \lstinputlisting[numbers=left, backgroundcolor=\color{light-gray}, frame=single, caption={The code for the substitution cipher}, label=code:subs]{substitution.c}
