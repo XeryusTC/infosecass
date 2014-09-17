@@ -1,1 +1,12 @@
-The shift used to obtain the encrypted text is 9. The smallest substitution cipher shift that results in the original text is 17.
+% !TEX root = main.tex
+We decrypted the text using repeated application of \lstinline{substitution} on the decrypted text using a bash script. This script can be found in \autoref{code:break}. We could then look at the output of this script to find the correct shift used. This shift was 9. 
+
+Using this shift, we decrypted the following text. We added punctuation to improve readability. 
+
+Welcome at the course about informationsecurity. This course is about securing information. In this context we think, for example, about how to prevent the unauthorized reading of information or about how to prevent the unauthorized modification of information. Many encryption methods exist, some already thousands years old. Initially we'll focus on simple methods to encrypt information. Following this we'll use characteristic values identifying information, making it difficult to modify information unnotified. Later in this course we'll introduce personal encryption and we'll study topics like bufferoverflow exploits and acrosssitescripting. I hope you'll enjoy this course about information security.
+
+\lstinputlisting[language=bash, caption={Script used to decrypt the cipher text}, label=code:break]{break.sh}
+
+Since the shift is 9 and there are 26 letters in the alphabet, we expected that the smallest positive substitution cipher shift value that would return the original text would be $26 - 9 = 17$. Using our \lstinline{substitution} program, we found out that this is indeed the case.
+
+%The shift used to obtain the encrypted text is 9. The smallest substitution cipher shift that results in the original text is 17.
