@@ -9,16 +9,14 @@ int main(int argc, char **argv) {
 	unsigned int sk[KEY_LENGTH], m, n, minv, in=0;
 	int i;
 	char c, d;
-	
-	printf("Enter your private key (10 unsigned ints): ");
+
+	printf("Enter your private key (%d unsigned ints): ", KEY_LENGTH + 2);
 	scanf("%d %d", &m, &n);
-	for (i=0; i<KEY_LENGTH; i++) {
+	for (i=0; i<KEY_LENGTH; i++)
 		scanf("%d", &sk[i]);
-	}
 
 	minv = invmod(m, n);
-	printf("%d %d %d\n", m, n, minv);
-	
+
 	printf("Enter the encrypted ints: ");
 	while (EOF != (c = getchar())) {
 		if (c >= '0' && c <= '9') {
@@ -34,12 +32,11 @@ int main(int argc, char **argv) {
 				}
 			}
 			printf("%c", d);
-			in = 0;
 		}
 		if (c == '\n')
 			printf("\n");
 	}
 	printf("\n");
-	
+
 	return 0;
 }

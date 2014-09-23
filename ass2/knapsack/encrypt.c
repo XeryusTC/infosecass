@@ -6,18 +6,12 @@
 int main(int argc, char **argv) {
 	unsigned int ks[KEY_LENGTH], i, out;
 	char c;
-	
-	printf("Enter public key (8 unsigned ints): ");
-	for (i=0; i<KEY_LENGTH; ++i) {
+
+	printf("Enter public key (%d unsigned ints): ", KEY_LENGTH);
+	for (i=0; i<KEY_LENGTH; ++i)
 		scanf("%d", &ks[i]);
-	}
-	getchar(); // remove extra \n
-	
-	for (i=0; i<KEY_LENGTH; ++i) {
-		printf("%d ", ks[i]);
-	}
-	printf("\n");
-	
+	getchar(); // Eat extra \n
+
 	printf("Enter message to encrypt:\n");
 	while (EOF != (c = getchar())) {
 		if (c=='\n') {
@@ -25,9 +19,8 @@ int main(int argc, char **argv) {
 			continue;
 		}
 		out = 0;
-		for (i=0; i<KEY_LENGTH; ++i) {
+		for (i=0; i<KEY_LENGTH; ++i)
 			out += ks[i] * ((c >> i) & 1);
-		}
 		printf("%d ", out);
 	}
 	return 0;

@@ -4,7 +4,6 @@
 #include "cryptomath.h"
 
 int gcd(int a, int b) {
-    /* algorithm taken from https://en.wikipedia.org/wiki/Greatest_common_divisor#Using_Euclid.27s_algorithm as it is clearer than the slides */
     if (a == b)
         return a;
     else if (a > b)

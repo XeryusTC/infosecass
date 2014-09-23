@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <math.h>
 
 #include "cryptomath.h"
 
@@ -15,31 +14,25 @@ int main(int argc, char **argv) {
 
     srand(time(NULL));
 
-	// Generate superincreasing knapsack
     for (i=0; i<KEY_LENGTH; ++i) {
         sk[i] = rand() % 4 + total + 1;
         total += sk[i];
     }
 
-	// Find n and m, where n rp m
 	n = next_prime(total);
     do {
 		m = rand() % (total/4);
 	} while (gcd(n, m) != 1);
-	
-	// Generate generic knapsack
-	for (i=0; i<KEY_LENGTH; ++i) {
+
+	for (i=0; i<KEY_LENGTH; ++i)
 		gk[i]  = (m * sk[i]) % n;
-	}
-	
+
 	printf("Private key: %3d %3d ", m, n);
-	for (i=0; i<KEY_LENGTH; ++i) {
+	for (i=0; i<KEY_LENGTH; ++i)
 		printf("%3d ", sk[i]);
-	}
 	printf("\nPublic key:  ");
-	for (i=0; i<KEY_LENGTH; ++i) {
+	for (i=0; i<KEY_LENGTH; ++i)
 		printf("%3d ", gk[i]);
-	}
 	printf("\n");
 
     return 0;
