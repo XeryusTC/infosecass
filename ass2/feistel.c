@@ -6,42 +6,62 @@
 
 #define ROUNDS 10
 #define BLOCK_SIZE 8
-#define HALF_BLOCK (BLOCK_SIZE / 2)
+#define HALF_BLOCK 4
 
 typedef enum {false=0, true} bool;
 
 void feistel(unsigned char *block, int block_length, unsigned char *dest);
 void sha1sum2text(unsigned char *dest, unsigned char *sum);
 unsigned char* f(unsigned char *key);
+void swapblock(unsigned char *block); // Swaps both halves of a block in place
 void fill_keys(unsigned char *initial, int length);
 void print_block(unsigned char *block);
+void strip_padding(unsigned char *block);
 
 unsigned char keys[ROUNDS/2][SHA_DIGEST_LENGTH];
 
 int main(int argc, char **argv) {
-	unsigned char c, *password = calloc(256, sizeof(char)),
+	unsigned char *password = calloc(256, sizeof(char)),
 		*block = calloc(BLOCK_SIZE, sizeof(unsigned char)),
-		*crypted = calloc(BLOCK_SIZE, sizeof(unsigned char));
-	int i=0;
+		*crypted = calloc(BLOCK_SIZE, sizeof(unsigned char)),
+		tmp[SHA_DIGEST_LENGTH];
+	char c, *format = "%c";
+	bool decrypt = false;
+	int i;
+	
+	if (argc > 1 && strcmp(argv[1], "-d") == 0) {
+		decrypt = true;
+		format = "%2x";
+	}
 	
 	if (isatty(fileno(stdin)))
 		printf("Password: ");
 	scanf("%s", password);
 
-	fill_keys(password, strlen((char*)password));
-	
 	// Generate keys
-	unsigned char *text = calloc(SHA_DIGEST_LENGTH, sizeof(char));
-	for (i=0; i<ROUNDS/2; ++i) {
-		sha1sum2text(text, keys[i]);
+	fill_keys(password, strlen((char*)password));
+	// When decrypting, swap keys
+	if (decrypt) {
+		for (i=0; i<ROUNDS/4; ++i) {
+			memcpy(tmp, keys[i], SHA_DIGEST_LENGTH);
+			memcpy(&keys[i], keys[ROUNDS/2-i-1], SHA_DIGEST_LENGTH);
+			memcpy(&keys[ROUNDS/2-i-1], tmp, SHA_DIGEST_LENGTH);
+		}
 	}
 	
 	// Do the feistel thing
-	while ((c = getchar()) != (unsigned char)EOF) {
-		block[i++] = c;
+	i = 0;
+	getchar(); // eat \n
+	while (scanf(format, &c) != EOF) {
+		block[i++] = (unsigned char)c;
 		if (i % BLOCK_SIZE == 0) {
 			feistel(block, BLOCK_SIZE, crypted);
-			print_block(crypted);
+			if (decrypt) {
+				strip_padding(crypted);
+				printf("%8s", crypted);
+			} else {
+				print_block(crypted);
+			}
 			i = 0;
 			memset(block, 0, BLOCK_SIZE*sizeof(unsigned char));
 		}
@@ -56,7 +76,7 @@ int main(int argc, char **argv) {
 }
 
 void feistel(unsigned char *block, int block_length, unsigned char *dest) {
-	unsigned *b = calloc(BLOCK_SIZE, sizeof(char)), r_old[HALF_BLOCK],
+	unsigned char *b = calloc(BLOCK_SIZE, sizeof(char)), r_old[HALF_BLOCK],
 		r_new[HALF_BLOCK], l_old[HALF_BLOCK], l_new[HALF_BLOCK], k1[HALF_BLOCK],
 		k2[HALF_BLOCK];
 	int i, j;
@@ -69,9 +89,8 @@ void feistel(unsigned char *block, int block_length, unsigned char *dest) {
 	memcpy(&l_old, block, HALF_BLOCK);
 	memcpy(&r_old, &block[HALF_BLOCK], HALF_BLOCK);
 	for (i=0; i<(ROUNDS/2); ++i) {
-		memcpy(&k1, keys[i], HALF_BLOCK * sizeof(char));
+		memcpy(&k1, &keys[i], HALF_BLOCK * sizeof(char));
 		memcpy(&k2, &keys[i][HALF_BLOCK], HALF_BLOCK * sizeof(char));
-		
 		// Round 1
 		memcpy(&l_new, r_old, HALF_BLOCK);
 		for (j=0; j<HALF_BLOCK; ++j) {
@@ -107,6 +126,15 @@ void fill_keys(unsigned char *initial, int length) {
 		memcpy(keys[i], SHA1(&key[i-1], SHA_DIGEST_LENGTH, NULL),
 			SHA_DIGEST_LENGTH*sizeof(unsigned char));
 	}
+	free(key);
+}
+
+void swapblock(unsigned char *block) {
+	unsigned char *tmp = calloc(HALF_BLOCK, sizeof(unsigned char));
+	memcpy(tmp, block, HALF_BLOCK);
+	memcpy(block, &block[HALF_BLOCK], HALF_BLOCK);
+	memcpy(&block[HALF_BLOCK], tmp, HALF_BLOCK);
+	free(tmp);
 }
 
 void sha1sum2text(unsigned char *dest, unsigned char *sum) {
@@ -126,4 +154,16 @@ void print_block(unsigned char *block) {
 	j += BLOCK_SIZE*2;
 	if (j % 80 == 0)
 		printf("\n");
+}
+
+void strip_padding(unsigned char *block) {
+	int i, j=0;
+	unsigned char *tmp = calloc(BLOCK_SIZE, sizeof(unsigned char));
+	for (i=0; i<BLOCK_SIZE; ++i) {
+		if (block[i] > 8) {
+			tmp[j++] = block[i];
+		}
+	}
+	memcpy(block, tmp, BLOCK_SIZE*sizeof(unsigned char));
+	free(tmp);
 }
