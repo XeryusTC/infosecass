@@ -1,0 +1,28 @@
+% !TEX root =  main.tex
+The first thing you need to do to is compute an initialisation vector. This vector can be random, in which case it has to be sent with the message or a nonce can be used. The IV should not be fixed.
+
+Now we can read in the data and encrypt it. The pseudo code for this can be found in \autoref{code:encbc}. First we read in the next plain text block. This plain text block is then \lstinline{xor}ed with the last plain text block, or if it is the first block, the IV. 
+
+This \lstinline{xor}ed block is then encrypted using the encrypt, which results in the ciphertext. The plaintext now becomes the old plain text and we start again.
+
+\begin{lstlisting}[caption={Encryption with CBC}, label=code:encbc]
+oldPlain = initialisationVector()
+while (input) {
+	plain = read()
+	cipher = E(key, xor(plain, oldPlain))
+	oldPlain = plain
+	write(cipher)
+}
+\end{lstlisting}
+
+The pseudocode for decryption can be found in \autoref{code:decbc}. First, we need our IV again. Once that is calculated, we can read in the first block of ciphertext. Now we have to decrypt this block. This decrypted block gets \lstinline{xor}ed with the previous plain text. Now we got our original plain text back, so we can make that the previous plain block and write away. 
+
+\begin{lstlisting}[caption={Decryption with CBC}, label=code:decbc]
+oldPlain = initialisationVector()
+while (input) {
+	cipher = read()
+	plain = xor(D(key, cipher), oldPlain)
+	oldPlain = plain
+	write(plain)
+}
+\end{lstlisting}
