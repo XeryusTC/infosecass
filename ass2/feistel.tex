@@ -1,0 +1,3 @@
+The code in \autoref{code:feistel} is able to encrypt and decrypt using a Feistel cypher. It is not able to decrypt the supplied file as it expects hexadecimal text input instead of binary. Even when changing it to read binary it still fails. The program is able to encrypt and decrypt a file correctly, although it doesn't always seem to be able to remove padding in the last block.
+
+\lstinputlisting[caption=\lstname,label={code:feistel}]{feistel.c}

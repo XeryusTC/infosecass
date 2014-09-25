@@ -1,3 +1,6 @@
 bananenflip
-dit is een test text om te testen of de cipher werkt en dat soort ongein.
-als het goed is werkt nieuwe regels ook.
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tristique pellentesque ante id finibus. Quisque congue quis augue nec tempus. Nulla tempus, est sit amet vehicula venenatis, quam ligula eleifend massa, eu vulputate urna sem et augue. Praesent quis feugiat dolor, quis pharetra leo. Morbi porta justo ex, in feugiat ex gravida id. Phasellus nec turpis elementum, consequat lorem at, efficitur velit. Proin lobortis ut leo non laoreet. Aenean nisl elit, mattis sit amet lectus et, tempus sagittis est. Fusce condimentum tempor libero sit amet faucibus. Proin eget orci lacus. Proin sodales, odio vel auctor feugiat, tellus erat ultricies lorem, vel commodo dolor lorem eget augue. Donec at quam vel massa molestie pulvinar. Sed et elit quis sapien convallis gravida et nec eros. Vivamus vestibulum, augue at auctor interdum, sem lacus vulputate risus, ac blandit mi diam sed orci.
+
+Sed in feugiat dui. Sed finibus magna sed suscipit tristique. Praesent sit amet odio sed tortor laoreet lacinia. Aenean tristique justo nec orci sagittis, vel scelerisque sem suscipit. Aenean mollis elit ac ex interdum vulputate. In eu ultrices purus. Morbi dignissim leo ut lectus tristique aliquam. Pellentesque hendrerit feugiat mauris at rhoncus. Pellentesque dignissim aliquet neque bibendum pharetra. Sed vel augue sagittis, facilisis tellus in, molestie nisl. Quisque aliquet, eros et commodo laoreet, nunc enim rhoncus elit, ut posuere nunc felis vulputate felis. Quisque et justo nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor imperdiet accumsan. Duis a consectetur purus, vel auctor lectus. 
