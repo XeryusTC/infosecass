@@ -1,0 +1,12 @@
+% !TEX root =  main.tex
+Since spiders have 8 legs and beetles have 6 legs this problem can be expressed as $8x + 6y = 80$. Immediately an obvious answer becomes clear: $x=10, y=0$. Since the greatest common divisor of 6 and 8 is 2 and 80 is a multiple of this we can solve this problem using linear Diophantine equations. We can rewrite the equation to $4x + 3y = 40$, and since 3 and 4 are relatively prime we can rewrite this as:
+\begin{eqnarray}
+	4x + 3y &=& 1 \\
+	4x - 1 &=& 3y
+\end{eqnarray}
+Which is equivalent to $4x = 1 \% 3$, or in other words, we have to find the modular inverse:
+\begin{eqnarray}
+	3 - -1 \cdot 4 &=& 1 \label{eqn:1} \\
+	3 - 2 \cdot 1 &=& 1 \label{eqn:2} \\
+\end{eqnarray}
+Substituting \autoref{eqn:1} in \autoref{eqn:2} gives: $3 - 2 (4 - 1 \cdot 3) = 3 \cdot 3 - 8 = 1$, so $y = 3$.
