@@ -1,1 +1,18 @@
 % !TEX root =  main.tex
+
+\[ E: y^2 = x^3 + 10x - 21 ({mod} 41) \]
+\setcounter{equation}{-1}
+\begin{eqnarray}
+P_1 &= (3, 6)& \\
+P_2 &= P_1 + P_1 = & (3, -6) \\
+P_3 &= P_2 + P_2 = & (3, 6) \\
+P_4 &= P_3 + P_3 = & (3, -6) \\
+P_5 &= P_4 + P_4 = & (3, 6) \\
+P_6 &= P_5 + P_5 = & (3, -6)
+\end{eqnarray}
+
+Alice = 44 * (3, 6). 44 can be represented as $2^5 + 2^3 + 2^2$, so this means that Alice's point is $(P_6 + P_4) + P_3 = $
+
+Bob = 57 * (3, 6). $57 = 2^5 + 2^4 + 2^3 + 2^0$, this means that Bob's point is: $((P_6 + P_5)) + P_4) + P_1$.
+
+This means that Bob only needs to do a total amount of 7 additions to obtain $57 * P_1$, 5 to obtain the points $P_2$ through $P_6$ and an additional 3 to calculate his point.
