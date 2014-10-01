@@ -1,0 +1,122 @@
+<XeryusTC> hah, openttd is used by my information security teacher as a bad example of using checksums
+<DorpsGek> Commit by rubidium :: r26930 trunk/src/table/heightmap_colours.h (2014-09-27 14:51:34 UTC)
+<DorpsGek> -Add: extra shadings to he heightmap colour tables (Chillcore)
+<Rubidium> XeryusTC: please tell us how it's bad... I'm interested ;)
+<peter1138> OMG, MD5, so many collisions!
+<XeryusTC> the exercise is on why providing checksums next to downloads is bad
+<Rubidium> oh, those checksums
+<peter1138> "next to"?
+<Rubidium> peter1138: the checksums on the download page of openttd
+<XeryusTC> http://www.openttd.org/en/download-testing
+<XeryusTC> checksums on those pages
+<XeryusTC> just found it funny how he used openttd as as example, it is all over the web
+<peter1138> Should they be hidden? :p
+<Rubidium> why is it bad that the checksums are there?
+<peter1138> It's not like that's where the downloads actually come from.
+<peter1138> Although the mirror redirect is on the same platform, so...
+<Prof_Frink> Because people shouldn't know if their downloads got corrupted.
+<XeryusTC> it is probably because if Trudy is able to modify your download then she is also probably able to modify the checksum on the page
+<Rubidium> XeryusTC: what other solution is there?
+<Rubidium> because if Trudy is able to modify the page, then Trudy is probably also able to mess with the source repository and the build farm
+<XeryusTC> I dunno, it is an exercise, i still have to come up with a solution
+<Rubidium> likewise the MTA
+<Alberth> obviously, removing the checksums is much safer :p
+<XeryusTC> Trudy can also intercept the page after it has been transmitted and then modify it
+<Prof_Frink> I never saw MD5s as a security thing, just a "Did this download right?" thing.
+<Pikka> it is
+<XeryusTC> indeed
+<Prof_Frink> (More important with things like OS images or firmwares than openttd.)
+<Rubidium> XeryusTC: by the same token, Trudy can intercept all traffic and provide a bogus SSL certificate for ANY communication we do
+<Pikka> XeryusTC, so the challenge is to come up with a way to detect an omnipotent intruder?
+<Rubidium> including mails to mailing lists or whatever
+<XeryusTC> Pikka: probably :(
+<XeryusTC> Rubidium: very true, but he apparently thinks that this method is meant for security,  not to check if your download got corrupted
+<Prof_Frink> Why would he think that, then claim that it isn't?
+* DabuYu (DabuYu@128.250.79.238) has joined #openttd
+<Prof_Frink> You shouldn't use MD5sums because they're not suitable for building bridges.
+<Rubidium> our website only claims that if the checksums don't match, it's definitely corrupted or not from the website. It doesn't state that if the checksum matches it definitely came from us
+<Rubidium> that's an assumption your teacher made, and making an assumption in information security is IMO a fatal mistake
+<Pikka> assumptions make an ass out of u and mption.
+<Prof_Frink> s.
+<Prof_Frink> Rubidium: Or the script that generates the MD5s for that page fell over.
+<XeryusTC> Rubidium: that is true, but it is still the case that a malicious party can foil this method
+<Rubidium> XeryusTC: true, just take over the domain... but then they can send mails to mailings lists with signatures as well
+<^Spike^> XeryusTC in the end depending on the network setup even someone not even modyfing the ottd page can still make the user show false info even if the checksums are on a different page/server on the other side of the world
+<^Spike^> if it becomes a mitm
+<^Spike^> so the point the teacher makes seems rather pointless
+<^Spike^> cause i can not modify ottd pages and still modify checksums and provide a false file
+* qwebirc32056 (~oftc-webi@109.113.4.70) has joined #openttd
+<XeryusTC> the point he is trying to make is rather pointless indeed
+* qwebirc32056 has quit ()
+<Rubidium> XeryusTC: obviously the only solution is for the downloader to physically come to the person that did the release and built the binary to get the checksums from just after the build as they were written down on a piece of paper. This under the watchful eye of a judge/notary, who then signs everything and commits it to public record.
+<^Spike^> ^^^
+<^Spike^> got it before me :)
+<peter1138> added test: our mirrors also contain checksums
+<peter1138> so (somehow) check each mirror agrees
+<peter1138> then realise that mirror upload is automated :p
+<^Spike^> peter1138 as said that wouldn't matter if it is a mitm for ex depends on which side they are :)
+<peter1138> ok let's put it on ssl and assume the user knows how to check for a valid certificate
+<^Spike^> if they are on client side then they won't notice if they are just @ one server then yeah mirror checks work :)
+<^Spike^> *cough*diginotar*cough*
+<Rubidium> in other words, you need to get the checksum in some way that does not contain any black box-y methods of transport, i.e. where you cannot oversee each and every step
+<Rubidium> so sending things via snail mail is out as well
+<^Spike^> ssl certs are just trust based
+<XeryusTC> Rubidium: the safest method is probably to print the code, put it in an envelope and seal it with wax, mail it to the other party (or hand it in person) and have the other party type it into their computer and compile it
+<^Spike^> we trust several companies to provide a safe chain
+<^Spike^> doesn't mean they also actually do.. :)
+<^Spike^> Xaroth you forget: Having the same compile setup :)
+<^Spike^> else checksums do not match :D
+<Prof_Frink> Rubidium: I think we've just invented the key-exchange problem.
+<peter1138> of course not, the ca business is built on a scam
+<Rubidium> XeryusTC: the envelope can be intercepted, as such it is not safe
+<michi_cc> PGP signatures with a proper web of trust. Of course, if the attacked has access to the server the private keys isn't exactly private anymore either.
+<peter1138> so manually sign each an every release. cool.
+<XeryusTC> Rubidium: that is where the seal comes in, if it is broken you can definitely say that it has been tampered with
+<Rubidium> XeryusTC: but I can just put it in a new enveloppe and reseal it
+<Prof_Frink> But that won't have the openttd seal on it.
+<^Spike^> can be forged :)
+<Rubidium> after all, I intercepted a set of enveloppes, paper, wax and a replacement seal that some office supplier sent to the person doing the printing
+<peter1138> safest best, stop distributing anything
+<^Spike^> stop using the interwebz... :)
+<Rubidium> XeryusTC: but I like to hear your professor's solution, just to poke holes into it ;)
+<^Spike^> XeryusTC: and there you have your answer... Teacher your point does not work in any way. I have discussed it with the guys of OpenTTD and there are so many ways you can still forge it no matter what :)
+<Prof_Frink> And make sure you include quotes from this conversation in your report.
+<^Spike^> :)
+<XeryusTC> oh, I will quote this ;)
+<^Spike^> heheh
+<XeryusTC> Rubidium: he can probably come up with a good solution, although it might indeed involve swapping papers in person
+<Rubidium> but how do you know that the person you're swapping with is the real author?
+<Rubidium> okay, *you* might know some of them... but your teacher probably not
+<Prof_Frink> If you're gonna meet in person, couln't he just give you a disk with the program on it, rather than download the program and meet up for the checksum?
+<XeryusTC> Prof_Frink: but how would you then check if your download isn't corrupted?
+<Prof_Frink> Rubidium: Doesn't matter even if you know them personally. "We have your family, do what we say and nobody gets harmed..."
+<Prof_Frink> It can't be corrupted, because I haven't downloaded anything.
+* sla_ro|master (slamaster@95.76.26.55) has joined #openttd
+* Celestar (~Celestar@p4FFB9B41.dip0.t-ipconnect.de) has joined #openttd
+* moffi has quit (Ping timeout: 480 seconds)
+<Rubidium> Prof_Frink: so... there is NO way to completely ensure there not being a MITM-attack
+<Prof_Frink> Sure there is. Don't have a middle to put a man in.
+<Prof_Frink> Only use code that you've written yourself, on an OS you've written yourself, with a compiler... you get the idea.
+<^Spike^> with computer parts you build yourself? :)
+<Rubidium> Prof_Frink: but that doesn't need distributing
+<Rubidium> and as such no need to download or have checksums
+<Rubidium> thus it's a moot solution for this conundrum
+<Prof_Frink> Wait, what was the question?
+<Rubidium> essentially to safely distribute files
+<Prof_Frink> Safely distribute or safely receive?
+<Rubidium> basically both?
+<Alberth> sounds like obtaining a unique identity for a MP session
+* KWKdesign has quit (Read error: Connection reset by peer)
+* KWKdesign (~KWKdesign@pool-108-52-130-213.phlapa.fios.verizon.net) has joined #openttd
+<XeryusTC> Prof_Frink: apparently distributing files with a checksum next to them on the download page is flawed
+* DabuYu has quit (Ping timeout: 480 seconds)
+<peter1138> Should be on a different page? :p
+<Rubidium> XeryusTC: but the files are downloaded from a different country than those checksums are in ;)
+* Hazzard (~quassel@c-67-174-253-44.hsd1.ca.comcast.net) has joined #openttd
+<peter1138> anyway
+<peter1138> why would you trust us with your game
+* MTsPony has quit ()
+* DabuYu (DabuYu@128.250.79.238) has joined #openttd
+* MTsPony (~MTsPony@008-086-128-083.dynamic.caiway.nl) has joined #openttd
+<Rubidium> what if I were Trudy?
+<Prof_Frink> Trudibium?
