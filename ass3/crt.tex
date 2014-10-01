@@ -32,28 +32,36 @@ $C_i$ & $N$ & $a_i$ & $c_i$ & $m_i$ & $n_i$  & $q_i$ \\ \hline
 We we can start to calculate $x$, since $x=\Sigma c_in_iq_i$. So in this case, $x$ is equal to $110081588438$. This means that $x\%M = 13824$. This in turn means that $X = \sqrt[3]{x} = 24$. This means that the send message is 24. 
 
 We can encrypt and decrypt the message for another person using Garner's formula:
-\[\begin{array}{lcl}
+\begin{eqnarray}
 x &=& ((a - b) \times q^{-1} \% p) \% p \times q + b\\
-\end{array}\]
+\end{eqnarray}
 Here $p = 47$, $q = 29$, $q^{-1} \%p = q^{p-2} \% p = 13$ and for encryption $a = M^e \% p = 6$ and $b = M^e \% q = 20$. Now we can encrypt the message. 
-\[\begin{array}{lcl}
+\begin{eqnarray}
 x &=& ((6 - 20) \times 13 \% 47) \% 47 \times 29 + 20 \\
 x &=& 6 \times 29 + 20 \\
 x &=& 194 \\
-\end{array}\]
+\end{eqnarray}
 
 So the ciphermessage we want to send is 397. For decryption, we will also need to have $d$, which we still need to calculate. For our $p$ and $q$, $d$ = 
-\[\begin{array}{lcl}
+\begin{eqnarray}
 ed &=& 1 \% \Phi(N) \\
 3d &=& 1 \% 1288 \\
 d &=& 859 \\
-\end{array}\]
+\end{eqnarray}
 Now we can decrypt the message again. In this case $a = C^d \% p = 24$ and $b = C^d \% q = 24$.
-\[\begin{array}{lcl}
+\begin{eqnarray}
 x &=& ((47 + 24 - 24) \times 36 \% 47) \% 47 \times 29 + 24 \\
 x &=& 0 \times 29 + 24 \\
 x &=& 24\\
-\end{array}\]
+\end{eqnarray}
 
 So that is how you can use the CRT to encrypt and decrypt messages. 
+
+
+
+
+
+
+
+
 
