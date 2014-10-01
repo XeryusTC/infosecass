@@ -1,1 +1,59 @@
 % !TEX root =  main.tex
+First of, we need to collect and correctly name the numbers we are given. We know that the public key consists of $(N,e)$ and that the intercepted text is called $C$. We also know that we will need $M$, which is the product of all the $N$s. All these numbers can be found in \autoref{tbl:crt1}. The value for $M$ is $\Pi m_i = 493 * 517 * 943 = 240352783$.
+
+\begin{table}[!htp]
+\centering
+\caption{The numbers given and $n_i$}
+\label{tbl:crt1}
+\begin{tabular}{|ccccccc|}
+\hline
+$C_i$ & $N$ & $a_i$ & $c_i$ & $m_i$ & $n_i$  & $q_i$ \\ \hline
+   20 & 493 &     1 &    20 &   493 & 487531 &       \\
+  382 & 517 &     1 &   382 &   517 & 464899 &       \\
+  622 & 943 &     1 &   622 &   943 & 254881 &       \\ \hline
+\end{tabular}
+\end{table}
+
+Now we only need to compute $q_i$ before we can start with calculating $X$. This can be done by using $n_iq_i = 1 \% m_i$. All the values can be found in \autoref{tbl:crt2}.
+
+\begin{table}[!htp]
+\centering
+\caption{The numbers needed for the CRT attack}
+\label{tbl:crt2}
+\begin{tabular}{|ccccccc|}
+\hline
+$C_i$ & $N$ & $a_i$ & $c_i$ & $m_i$ & $n_i$  & $q_i$ \\ \hline
+   20 & 493 &     1 &    20 &   493 & 487531 &    75 \\
+  382 & 517 &     1 &   382 &   517 & 464899 &   156 \\
+  622 & 943 &     1 &   622 &   943 & 254881 &   515 \\ \hline
+\end{tabular}
+\end{table}
+
+We we can start to calculate $x$, since $x=\Sigma c_in_iq_i$. So in this case, $x$ is equal to $110081588438$. This means that $x\%M = 13824$. This in turn means that $X = \sqrt[3]{x} = 24$. This means that the send message is 24. 
+
+We can encrypt and decrypt the message for another person using Garner's formula:
+\[\begin{array}{lcl}
+x &=& ((a - b) \times q^{-1} \% p) \% p \times q + b\\
+\end{array}\]
+Here $p = 47$, $q = 29$, $q^{-1} \%p = q^{p-2} \% p = 13$ and for encryption $a = M^e \% p = 6$ and $b = M^e \% q = 20$. Now we can encrypt the message. 
+\[\begin{array}{lcl}
+x &=& ((6 - 20) \times 13 \% 47) \% 47 \times 29 + 20 \\
+x &=& 6 \times 29 + 20 \\
+x &=& 194 \\
+\end{array}\]
+
+So the ciphermessage we want to send is 397. For decryption, we will also need to have $d$, which we still need to calculate. For our $p$ and $q$, $d$ = 
+\[\begin{array}{lcl}
+ed &=& 1 \% \Phi(N) \\
+3d &=& 1 \% 1288 \\
+d &=& 859 \\
+\end{array}\]
+Now we can decrypt the message again. In this case $a = C^d \% p = 24$ and $b = C^d \% q = 24$.
+\[\begin{array}{lcl}
+x &=& ((47 + 24 - 24) \times 36 \% 47) \% 47 \times 29 + 24 \\
+x &=& 0 \times 29 + 24 \\
+x &=& 24\\
+\end{array}\]
+
+So that is how you can use the CRT to encrypt and decrypt messages. 
+
