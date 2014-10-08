@@ -1,0 +1,56 @@
+Script started on Wed 08 Oct 2014 02:06:41 PM CEST
+s2348802@fwn-bborg-edu-74-63:~$ telnet mx-1.mf.surf.net 25
+Trying 194.171.167.216...
+Connected to mx-1.mf.surf.net.
+Escape character is '^]'.
+220 filter4-til.mf.surf.net ESMTP CanIt-Appliance
+ehlo localhost
+250-filter4-til.mf.surf.net Hello fwn-bborg-edu-74-63.fmnsedu.rug.nl [129.125.74.63], pleased to meet you
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-8BITMIME
+250-SIZE
+250-DSN
+250-ETRN
+250-STARTTLS
+250-DELIVERBY
+250 HELP
+mail from: <m.hatef@rug.nl>
+250 2.1.0 <m.hatef@rug.nl>... Sender ok
+rcpt to: <m.hatef@rug.nl>
+250 2.1.5 <m.hatef@rug.nl>... Recipient ok
+data
+354 Enter mail, end with "." on a line by itself
+Recieved from     : from whathost ([111.222.333.444]) by other.host (SMSSMTP 4.1.0.19) with SMTP id M2006051115312903572 for <m.hatef@rug.nl>;
+Wed,      Wed Oct  8 14:13:25 CEST 2014 5
+Subject: Information Security Email Exercise
+To: <m.hatef@rug.nl>
+Date: Wed Oct  8 14:13:25 CEST 2014 5
+
+Information Security Email Exercise from Xeryus Stokkel and Rene Mellema
+.
+451 4.3.0 <m.hatef@rug.nl>... First-time sender tempfailed as anti-spam measure; please try again
+data
+503 5.0.0 Need MAIL command
+mail from: <m.hatef@rug.nl>
+250 2.1.0 <m.hatef@rug.nl>... Sender ok
+rcpt to: <m.hatef@rug.nl>
+data
+250 2.1.5 <m.hatef@rug.nl>... Recipient ok
+354 Enter mail, end with "." on a line by itself
+Recieved: from whathost ([111.222.333.444]) by other.host (SMSSMTP 4.1.0.19) with SMTP id M2006051115312903572 for <m.hatef@rug.nl>;
+Wed Oct  8 14:13:25 CEST 2015
+Subject: Information Security Email Exercise
+To  : <m.atef@rug.nl>^[[D                hatef@rug.nl>
+DateL : Wed Oct  8 14:13:25 CEST 2015
+
+Information Security Email Exercise from Xeryus Stokkel and Renen    Mellema
+.
+250 2.0.0 s98C6uHI004715 Message accepted for delivery
+quit
+221 2.0.0 filter4-til.mf.surf.net closing connection
+Connection closed by foreign host.
+s2348802@fwn-bborg-edu-74-63:~$ exit
+exit
+
+Script done on Wed 08 Oct 2014 02:18:09 PM CEST
