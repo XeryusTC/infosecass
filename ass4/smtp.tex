@@ -1,0 +1,50 @@
+% !TEX root = main.tex
+On the 8 of october we send an email to Mehdi from the rugs smtp server. The transcript of the session can be found in \autoref{out:smtp}.
+
+\begin{figure}[!htp]
+\caption{The output of the smtp session}
+\label{out:smtp}
+\begin{Verbatim}[frame=single, numbers=left]
+Script started on Wed 08 Oct 2014 02:06:41 PM CEST
+s2348802@fwn-bborg-edu-74-63:~$ telnet mx-1.mf.surf.net 25
+Trying 194.171.167.216...
+Connected to mx-1.mf.surf.net.
+Escape character is '^]'.
+220 filter4-til.mf.surf.net ESMTP CanIt-Appliance
+ehlo localhost
+250-filter4-til.mf.surf.net Hello fwn-bborg-edu-74-63.fmnsedu.rug.nl [129.125.74.63], 
+	pleased to meet you
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-8BITMIME
+250-SIZE
+250-DSN
+250-ETRN
+250-STARTTLS
+250-DELIVERBY
+250 HELP
+mail from: <m.hatef@rug.nl>
+250 2.1.0 <m.hatef@rug.nl>... Sender ok
+rcpt to: <m.hatef@rug.nl>
+data
+250 2.1.5 <m.hatef@rug.nl>... Recipient ok
+354 Enter mail, end with "." on a line by itself
+Recieved: from whathost ([111.222.333.444]) by other.host (SMSSMTP 4.1.0.19) with 
+	SMTP id M2006051115312903572 for <m.hatef@rug.nl>;
+Wed Oct  8 14:13:25 CEST 2015
+Subject: Information Security Email Exercise
+To: <m.atef@rug.nl>
+Date: Wed Oct  8 14:13:25 CEST 2015
+
+Information Security Email Exercise from Xeryus Stokkel and Rene Mellema
+.
+250 2.0.0 s98C6uHI004715 Message accepted for delivery
+quit
+221 2.0.0 filter4-til.mf.surf.net closing connection
+Connection closed by foreign host.
+s2348802@fwn-bborg-edu-74-63:~$ exit
+exit
+
+Script done on Wed 08 Oct 2014 02:18:09 PM CEST
+\end{Verbatim}
+\end{figure}
