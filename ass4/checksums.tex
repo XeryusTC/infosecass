@@ -1,5 +1,25 @@
-The problem here is that the checksums can be found on the same page as the file that is being downloaded. The idea is that if someone, say Alice, wants to  download a program, for example OpenTTD, she can check if the file she downloaded is really OpenTTD instead of a possibly malicious file placed there by a hacker.
+The problem here is that the checksums can be found on the same page as the file that is being downloaded. The idea is that if someone, say Alice, wants to  download a program, for example OpenTTD, she can check if the file she downloaded is really OpenTTD instead of a possibly malicious file that has been placed there by Trudy.
 
-But if the hacker can replace the download link to that file, she can also change other aspects of the served webpage, like the checksums. So although it seems that the checksums allow you to check if you downloaded the real program, this check can easily be circumvented by hackers by simply changing the checksums. 
+But if Trudy can replace the download link to that file, she can also change other aspects of the served webpage, like the checksums. So although it seems that the checksums allow you to check if you downloaded the real program, this check can easily be circumvented Trudy by simply changing the checksums.
 
-Instead of having the checksums at the same site as the download links for the program, the checksums should be served in another way. This could for example be done by an automatic email responder that serves the checksums when asked for them. 
+To solve this problem the easiest solution is to make the checksums available in as many places as possible. So the checksums could also be placed on associated mailinglists, forums, twitter accounts, facebook (when applicable) pages, blogs, websites of mirrors etc.
+
+Another solution would be to use the SSL certificate to sign the downloads. If you trust the certificate then you can assure that the download indeed came from the place that you expected it to come from.
+
+Having talked to the OpenTTD devs on IRC the best possible solution that we could come up with was the following:
+\begin{verbatim}
+<Rubidium> XeryusTC: obviously the only solution is for the downloader to
+    physically come to the person that did the release and built the binary to
+    get the checksums from just after the build as they were written down on a
+    piece of paper. This under the watchful eye of a judge/notary, who then
+    signs everything and commits it to public record.
+\end{verbatim}
+Or the alternative solution:
+\begin{verbatim}
+<XeryusTC> Rubidium: the safest method is probably to print the code, put it in
+    an envelope and seal it, mail it to the other party (or hand it in person)
+    and have the other party type it into their computer and compile it.
+\end{verbatim}
+But it is still possible to intercept the package, modify or replace the contents and reseal it, it would also require an identical compilation set-up for the checksums to match in the first place.
+
+In the end it turns out that the only really secure option is to not distribute anything at all.

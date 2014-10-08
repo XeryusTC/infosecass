@@ -48,7 +48,11 @@
 * qwebirc32056 (~oftc-webi@109.113.4.70) has joined #openttd
 <XeryusTC> the point he is trying to make is rather pointless indeed
 * qwebirc32056 has quit ()
-<Rubidium> XeryusTC: obviously the only solution is for the downloader to physically come to the person that did the release and built the binary to get the checksums from just after the build as they were written down on a piece of paper. This under the watchful eye of a judge/notary, who then signs everything and commits it to public record.
+<Rubidium> XeryusTC: obviously the only solution is for the downloader to
+    physically come to the person that did the release and built the binary to
+    get the checksums from just after the build as they were written down on a
+    piece of paper. This under the watchful eye of a judge/notary, who then
+    signs everything and commits it to public record.
 <^Spike^> ^^^
 <^Spike^> got it before me :)
 <peter1138> added test: our mirrors also contain checksums
@@ -61,7 +65,9 @@
 <Rubidium> in other words, you need to get the checksum in some way that does not contain any black box-y methods of transport, i.e. where you cannot oversee each and every step
 <Rubidium> so sending things via snail mail is out as well
 <^Spike^> ssl certs are just trust based
-<XeryusTC> Rubidium: the safest method is probably to print the code, put it in an envelope and seal it with wax, mail it to the other party (or hand it in person) and have the other party type it into their computer and compile it
+<XeryusTC> Rubidium: the safest method is probably to print the code, put it in
+    an envelope and seal it, mail it to the other party (or hand it in person)
+    and have the other party type it into their computer and compile it.
 <^Spike^> we trust several companies to provide a safe chain
 <^Spike^> doesn't mean they also actually do.. :)
 <^Spike^> Xaroth you forget: Having the same compile setup :)
