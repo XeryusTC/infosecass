@@ -1,12 +1,30 @@
 % !TEX root = main.tex
 \begin{enumerate}
 \setcounter{enumi}{7}
-\item If we CRC 10101011 with 10011 the result is 1010, so we are looking for two values that also give 1010. We can do this if the result of the division is 110. 
+\item If we CRC 10101011 with 10011 the result is 1010, so we are looking for two values that also give 1010. We can do this if the result of the division is 110.
 
-If we start from the bottom and work towards a new number, we get the number 010110011010. This number would create a hash collision if we were to send this. We also get a hash collision if we send 001100011010. 
+If we start from the bottom and work towards a new number, we get the number 010110011010. This number would create a hash collision if we were to send this. We also get a hash collision if we send 001100011010. The divisions for these two numbers can be found below.
+
+\begin{minipage}{0.5\textwidth}
+\texttt{\noindent
+001100011010\\
+\phantom{11}\underline{10011}\\
+\phantom{111}10101\\
+\phantom{111}\underline{10011}\\
+\phantom{11111}110\\}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\texttt{\noindent
+010110011010\\
+\phantom{1}\underline{10011}\\
+\phantom{111}10101\\
+\phantom{111}\underline{10011}\\
+\phantom{11111}110\\}
+\end{minipage}
 
 \item Trudy wants to send 111..... and she wants to this by colliding it with 11010110 and a divisor of 10011. The CRC checksum of 11010110 with 10011 as divisor is 0110 as can be seen from the following calculation:
 
+\texttt{\noindent
 110101100000\\
 \underline{10011}\\
 \phantom{1}10011\\
@@ -14,6 +32,27 @@ If we start from the bottom and work towards a new number, we get the number 010
 \phantom{111111}10000\\
 \phantom{111111}\underline{10011}\\
 \phantom{11111111}0110\\
+}
 
 So the number that is sent is 110101100110. So we get a collision if we find a number that has 0000 as result. We can find such a number. 
+
+\texttt{\noindent
+(1) 111.....0110\\
+(2) \underline{10011}\\
+(3) \phantom{1}11...\\
+(4) \phantom{1}\underline{10011}\\
+(5) \phantom{11}1....\\
+(6) \phantom{11}\underline{10011}\\
+(7) \phantom{111}.....\\
+(8) \phantom{111}\underline{10011}\\
+(9) \phantom{111111}10000\\
+(10)\phantom{111111}\underline{10011}\\
+(11)\phantom{111111111}110\\
+}
+
+Now we know the division, we can fill in the blanks. The last digit has to be a 1, since it has to be a zero after division. The digit in front of that also has to be a 1, since it has to be 0 at line (7) to be a one in the end. This digit also appears on line (5), where is has to be a 1 to be a 0 at (7). According to a similar reasoning, the third digit has to be a 0, the second digit has to be a 0 and the first digit also has to be a 0.
+
+So Trudy could chose for 111000110110 which would give the same remainder as 110101100110. 
+
+We could also try to skip (7), in which case we would get 111100000110. 
 \end{enumerate}
