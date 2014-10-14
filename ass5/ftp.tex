@@ -1,2 +1,4 @@
 % !TEX root =  main.tex
-It can be considered okay to operate a ftp server if the data you are serving is supposed to be publicly available. So for example, ftp.kernel.org gives an user access to the linux kernel. 
+It can be considered okay to operate a ftp server if the data you are serving is supposed to be publicly available. So for example, ftp.kernel.org gives an user access to the linux kernel. It is useful for both parties, Linus and the person that wants to download the kernel, that the files are publicly available. So in this case it is appropriate to use ftp. If you would use sftp everybody would need to have an account before you can download the files.
+
+If you are however dealing with sensitive data, like biographical data and contracts, you shouldn't be using a ftp server for storage. Since it doesn't encrypt its data, ftp should also not be used with passwords, even though this is an option in the protocol. 
