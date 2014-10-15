@@ -1,1 +1,6 @@
 % !TEX root =  main.tex
+The problem with normal Diffie-Hellman is that a Man in the Middle attack is possible. With ephemeral DH, this MiM attack is not possible, since the attacker would have to know the key K to be able to fool Alice and Bob. 
+
+Lets give an example. Lets say that Alice and Bob are using normal DH, so they agree on $g$ and $p$. Now Alice sends $g^a \% p$ to Bob. But if Trudy is the Man in the Middle, she will be able to intercept this message. Now she can send $g^t \% p$ to Bob, since $g$ and $p$ are known. Bob will think this message comes from Alice, so he will send back $g^b \% p$. Now Trudy will send $g^t \% p$ to Alice and both Alice and Bob will believe they are talking, while they are in fact talking through Trudy, who knows $g^{at} \% p$ and $g^{bt} \% p$ which Alice and Bob, respectively use for encrypting their messages. 
+
+If Alice and Bob would use ephemeral DH Alice would send $g^a \% p$ encrypted, which means that even if Trudy is the Man in the Middle, she won't be able to know $g^a \% p$, so she wouldn't be able to decrypt Alices message so she can send it to Bob with her key. So ephemeral DH protects against a MiM attack. 
