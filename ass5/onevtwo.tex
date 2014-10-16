@@ -1,1 +1,4 @@
 % !TEX root =  main.tex
+Lets say that we were to use the same key for signing and encrypting. Now, Trudy wants to communicate with Bob as Alice, so she connects with Bob and says she is Alice. Bob sends back a message that only Alice can decrypt so she can authenticate herself. Now Trudy contacts Alice and says she is Bob. She sends Alice the encrypted message that Bob send her. Alice signs the message, but since the same key is used for signing and encryption, se decrypts the message in the process. Now Trudy can send the message back to Bob so he will believe that he is communicating with Alice instead of Trudy. 
+
+Another problem is that Trudy can make Alice sign anything when she asks her to authenticate herself. So when Alice tries to make contact with Bob, but gets connected to Trudy, Trudy can send her anything she wants when she asks her to authenticate herself. Alice will then sign this message to authenticate herself. 
